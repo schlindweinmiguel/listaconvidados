@@ -47,12 +47,14 @@ function mostrarTodos() {
 
 // Função para pesquisar convidado
 function pesquisarConvidado() {
-    let pesquisa = document.getElementById('searchInput').value.toLowerCase();
+    let pesquisa = document.getElementById('searchInput').value.toLowerCase();  // Captura o texto da barra de pesquisa
     let lista = document.getElementById('guestList');
     lista.innerHTML = ''; // Limpa a lista
 
+    // Filtra os convidados com base na pesquisa
     let resultados = convidados.filter(nome => nome.toLowerCase().includes(pesquisa));
 
+    // Exibe os resultados da pesquisa
     for (let i = 0; i < resultados.length; i++) {
         let nome = resultados[i].toUpperCase();
         let li = document.createElement('li');
@@ -74,6 +76,7 @@ function filtrarComA() {
 
     let nomesComA = convidados.filter(nome => nome.charAt(0).toUpperCase() === 'A');
 
+    // Exibe os nomes filtrados
     for (let i = 0; i < nomesComA.length; i++) {
         let nome = nomesComA[i].toUpperCase();
         let li = document.createElement('li');
@@ -88,4 +91,105 @@ function filtrarComA() {
     }
 }
 
-// Função
+// Função para filtrar nomes com mais de 5 letras
+function filtrarMaisDeCinco() {
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
+
+    let nomesLongos = convidados.filter(nome => nome.length > 5);
+
+    // Exibe os nomes filtrados
+    for (let i = 0; i < nomesLongos.length; i++) {
+        let nome = nomesLongos[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(nomesLongos[i]);
+
+        li.appendChild(btnRemover);
+        lista.appendChild(li);
+    }
+}
+
+// Função para filtrar nomes que terminam com uma letra específica
+function filtrarComLetra() {
+    let letra = prompt("Digite a letra com a qual os nomes devem terminar:").toLowerCase();
+    if (!letra || letra.length > 1) {
+        alert("Por favor, insira apenas uma letra válida.");
+        return;
+    }
+    
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
+
+    let nomesComLetra = convidados.filter(nome => nome.toLowerCase().endsWith(letra));
+
+    // Exibe os nomes filtrados
+    for (let i = 0; i < nomesComLetra.length; i++) {
+        let nome = nomesComLetra[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(nomesComLetra[i]);
+
+        li.appendChild(btnRemover);
+        lista.appendChild(li);
+    }
+}
+
+// Função para filtrar nomes com exatamente N letras
+function filtrarExatamenteN() {
+    let n = prompt("Digite o número de letras que o nome deve ter:");
+    if (isNaN(n) || n <= 0) {
+        alert("Por favor, insira um número válido.");
+        return;
+    }
+
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
+
+    let nomesExato = convidados.filter(nome => nome.length === parseInt(n));
+
+    // Exibe os nomes filtrados
+    for (let i = 0; i < nomesExato.length; i++) {
+        let nome = nomesExato[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(nomesExato[i]);
+
+        li.appendChild(btnRemover);
+        lista.appendChild(li);
+    }
+}
+
+// Função para mostrar convidados de forma aleatória
+function mostrarAleatorio() {
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
+
+    let convidadosAleatorios = [...convidados].sort(() => Math.random() - 0.5); // Embaralha a lista
+
+    // Exibe os convidados de forma aleatória
+    for (let i = 0; i < convidadosAleatorios.length; i++) {
+        let nome = convidadosAleatorios[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(convidadosAleatorios[i]);
+
+        li.appendChild(btnRemover);
+        lista.appendChild(li);
+    }
+}
+
+// Mostrar todos os nomes ao carregar a página
+mostrarTodos();

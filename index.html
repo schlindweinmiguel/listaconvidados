@@ -13,6 +13,11 @@
             <p>Adicione, remova e filtre os convidados da sua lista.</p>
         </header>
 
+        <!-- Barra de Pesquisa -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Pesquisar Convidado..." onkeyup="pesquisarConvidado()">
+        </div>
+
         <!-- Formulário de Adicionar Convidado -->
         <div class="add-guest">
             <input type="text" id="newGuest" placeholder="Digite o nome do convidado">
@@ -21,8 +26,11 @@
 
         <!-- Filtros -->
         <div class="filters">
-            <button onclick="filtrarComA()">Nomes que começam com 'A'</button>
-            <button onclick="filtrarMaisDeCinco()">Nomes com mais de 5 letras</button>
+            <button onclick="filtrarComA()">Começa com 'A'</button>
+            <button onclick="filtrarComLetra()">Termina com letra...</button>
+            <button onclick="filtrarMaisDeCinco()">Mais de 5 letras</button>
+            <button onclick="filtrarExatamenteN()">Exatamente N letras</button>
+            <button onclick="mostrarAleatorio()">Exibir Aleatório</button>
             <button onclick="mostrarTodos()">Mostrar Todos</button>
         </div>
 

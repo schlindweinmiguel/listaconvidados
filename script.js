@@ -1,60 +1,54 @@
-// Função Range personalizada
-function range(start, end) {
-    let arr = [];
-    for (let i = start; i < end; i++) arr.push(i);
-    return arr;
-}
+// Lista de nomes de convidados
+let convidados = [
+    "Ana", "Carlos", "Juliana", "Paulo", "Amanda", "Mariana", 
+    "Lucas", "Alessandra", "Ricardo", "Tatiane", "Arthur", "Larissa"
+];
 
-// Banco de dados de nomes para aleatoriedade
-const bancoNomes = ["Ana", "Arthur", "Amanda", "Beatriz", "Bernardo", "Caio", "Douglas", "Elena", "Fabrício", "Gabriel", "Heloísa", "Igor", "Jéssica", "Kevin", "Larissa", "Aline", "Alexandre", "Aparecida", "Washington", "Valentina"];
+// Função para mostrar a lista completa
+function mostrarTodos() {
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista antes de adicionar os nomes
 
-let listaAtual = [];
-
-// Função para gerar nomes aleatórios
-function gerarNovosNomes() {
-    listaAtual = [];
-    const indices = range(0, 10); // Vamos gerar 10 nomes usando nosso range
-    
-    indices.forEach(() => {
-        const nomeAleatorio = bancoNomes[Math.floor(Math.random() * bancoNomes.length)];
-        listaAtual.push(nomeAleatorio);
-    });
-    
-    renderizar('todos');
-}
-
-// Função Principal de Renderização com Filtros
-function renderizar(filtro) {
-    const ul = document.getElementById('lista-exibicao');
-    ul.innerHTML = ""; // Limpa a lista atual
-    
-    let nomesFiltrados = [...listaAtual];
-
-    if (filtro === 'letraA') {
-        nomesFiltrados = listaAtual.filter(n => n.toUpperCase().startsWith('A'));
-    } else if (filtro === 'longos') {
-        nomesFiltrados = listaAtual.filter(n => n.length > 5);
-    }
-
-    nomesFiltrados.forEach(nome => {
-        const li = document.createElement('li');
+    // Exibe todos os nomes em maiúsculas
+    for (let i = 0; i < convidados.length; i++) {
+        let nome = convidados[i].toUpperCase();
+        let li = document.createElement('li');
         li.textContent = nome;
-        ul.appendChild(li);
-    });
-
-    document.getElementById('contador-total').textContent = `Total exibido: ${nomesFiltrados.length}`;
+        lista.appendChild(li);
+    }
 }
 
-// Função de Busca em tempo real
-function buscarNome() {
-    const termo = document.getElementById('inputBusca').value.toUpperCase();
-    const itens = document.querySelectorAll('#lista-exibicao li');
+// Função para filtrar nomes que começam com "A"
+function filtrarComA() {
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
 
-    itens.forEach(li => {
-        const texto = li.textContent.toUpperCase();
-        li.style.display = texto.includes(termo) ? "" : "none";
-    });
+    let nomesComA = convidados.filter(nome => nome.charAt(0).toUpperCase() === 'A');
+
+    // Exibe os nomes filtrados
+    for (let i = 0; i < nomesComA.length; i++) {
+        let nome = nomesComA[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+        lista.appendChild(li);
+    }
 }
 
-// Inicia a página com nomes
-gerarNovosNomes();
+// Função para filtrar nomes com mais de 5 letras
+function filtrarMaisDeCinco() {
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
+
+    let nomesLongos = convidados.filter(nome => nome.length > 5);
+
+    // Exibe os nomes filtrados
+    for (let i = 0; i < nomesLongos.length; i++) {
+        let nome = nomesLongos[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+        lista.appendChild(li);
+    }
+}
+
+// Mostrar todos os nomes ao carregar a página
+mostrarTodos();

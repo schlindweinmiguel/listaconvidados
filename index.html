@@ -2,21 +2,41 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Convidados JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuestMaster Pro - Gestão de Convidados</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Gerenciador de Convidados</h1>
-    
-    <div id="output">
-        <h3>Lista em Maiúsculas:</h3>
-        <ul id="lista-maiuscula"></ul>
 
-        <p id="contagem-a"></p>
+    <header class="main-header">
+        <div class="logo">✨ GuestMaster</div>
+        <nav>
+            <button onclick="gerarNovosNomes()" class="btn-primary">Gerar Novos Nomes</button>
+        </nav>
+    </header>
 
-        <h3>Nomes com mais de 5 letras:</h3>
-        <ul id="lista-longos"></ul>
-    </div>
+    <main class="container">
+        <section class="filter-section">
+            <h2>Filtros de Lista</h2>
+            <div class="button-group">
+                <button onclick="renderizar('todos')">Todos os Nomes</button>
+                <button onclick="renderizar('letraA')">Começam com 'A'</button>
+                <button onclick="renderizar('longos')">Mais de 5 Letras</button>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="inputBusca" placeholder="Busca rápida..." onkeyup="buscarNome()">
+            </div>
+        </section>
+
+        <section class="results-section">
+            <div class="stats">
+                <span id="contador-total">Total: 0</span>
+            </div>
+            <ul id="lista-exibicao" class="guest-list">
+                </ul>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>

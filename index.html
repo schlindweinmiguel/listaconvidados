@@ -1,42 +1,29 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GuestMaster Pro - Gestão de Convidados</title>
+    <title>Lista de Convidados</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>Lista de Convidados</h1>
+            <p>Escolha os filtros para exibir os convidados de acordo com suas preferências.</p>
+        </header>
 
-    <header class="main-header">
-        <div class="logo">✨ GuestMaster</div>
-        <nav>
-            <button onclick="gerarNovosNomes()" class="btn-primary">Gerar Novos Nomes</button>
-        </nav>
-    </header>
+        <div class="filters">
+            <button onclick="filtrarComA()">Nomes que começam com 'A'</button>
+            <button onclick="filtrarMaisDeCinco()">Nomes com mais de 5 letras</button>
+            <button onclick="mostrarTodos()">Mostrar Todos</button>
+        </div>
 
-    <main class="container">
-        <section class="filter-section">
-            <h2>Filtros de Lista</h2>
-            <div class="button-group">
-                <button onclick="renderizar('todos')">Todos os Nomes</button>
-                <button onclick="renderizar('letraA')">Começam com 'A'</button>
-                <button onclick="renderizar('longos')">Mais de 5 Letras</button>
-            </div>
-            
-            <div class="search-box">
-                <input type="text" id="inputBusca" placeholder="Busca rápida..." onkeyup="buscarNome()">
-            </div>
-        </section>
-
-        <section class="results-section">
-            <div class="stats">
-                <span id="contador-total">Total: 0</span>
-            </div>
-            <ul id="lista-exibicao" class="guest-list">
-                </ul>
-        </section>
-    </main>
+        <div class="name-list">
+            <h2>Convidados:</h2>
+            <ul id="guestList"></ul>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

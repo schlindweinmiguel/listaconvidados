@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Convidados</title>
+    <title>Painel de Gerenciamento - Lista de Convidados</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Lista de Convidados</h1>
-            <p>Escolha os filtros para exibir os convidados de acordo com suas preferências.</p>
+            <h1>Painel de Gerenciamento de Convidados</h1>
+            <p>Adicione, remova e filtre os convidados da sua lista.</p>
         </header>
 
+        <!-- Formulário de Adicionar Convidado -->
+        <div class="add-guest">
+            <input type="text" id="newGuest" placeholder="Digite o nome do convidado">
+            <button onclick="adicionarConvidado()">Adicionar Convidado</button>
+        </div>
+
+        <!-- Filtros -->
         <div class="filters">
             <button onclick="filtrarComA()">Nomes que começam com 'A'</button>
             <button onclick="filtrarMaisDeCinco()">Nomes com mais de 5 letras</button>
             <button onclick="mostrarTodos()">Mostrar Todos</button>
         </div>
 
-        <div class="name-list">
+        <!-- Lista de Convidados -->
+        <div class="guest-list">
             <h2>Convidados:</h2>
             <ul id="guestList"></ul>
         </div>

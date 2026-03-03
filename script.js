@@ -1,50 +1,60 @@
-// Criando a função range personalizada (estilo Python)
+// Função Range personalizada
 function range(start, end) {
-    let list = [];
-    for (let i = start; i < end; i++) {
-        list.push(i);
-    }
-    return list;
+    let arr = [];
+    for (let i = start; i < end; i++) arr.push(i);
+    return arr;
 }
 
-// 1. Lista de nomes de convidados
-const convidados = ["Ana", "Bernardo", "Amanda", "Carlos", "Adriano", "Beatriz", "Valentina"];
+// Banco de dados de nomes para aleatoriedade
+const bancoNomes = ["Ana", "Arthur", "Amanda", "Beatriz", "Bernardo", "Caio", "Douglas", "Elena", "Fabrício", "Gabriel", "Heloísa", "Igor", "Jéssica", "Kevin", "Larissa", "Aline", "Alexandre", "Aparecida", "Washington", "Valentina"];
 
-// Selecionando elementos do HTML
-const ulMaiuscula = document.getElementById('lista-maiuscula');
-const ulLongos = document.getElementById('lista-longos');
-const pContagem = document.getElementById('contagem-a');
+let listaAtual = [];
 
-let contagemA = 0;
-let nomesLongos = [];
-
-// 2. Usando o range() para iterar sobre a lista
-const indices = range(0, convidados.length);
-
-indices.forEach(i => {
-    const nome = convidados[i];
+// Função para gerar nomes aleatórios
+function gerarNovosNomes() {
+    listaAtual = [];
+    const indices = range(0, 10); // Vamos gerar 10 nomes usando nosso range
     
-    // Imprimir em letras maiúsculas no HTML
-    const li = document.createElement('li');
-    li.textContent = nome.toUpperCase();
-    ulMaiuscula.appendChild(li);
+    indices.forEach(() => {
+        const nomeAleatorio = bancoNomes[Math.floor(Math.random() * bancoNomes.length)];
+        listaAtual.push(nomeAleatorio);
+    });
+    
+    renderizar('todos');
+}
 
-    // 3. Contar nomes que começam com 'A'
-    if (nome.toUpperCase().startsWith('A')) {
-        contagemA++;
+// Função Principal de Renderização com Filtros
+function renderizar(filtro) {
+    const ul = document.getElementById('lista-exibicao');
+    ul.innerHTML = ""; // Limpa a lista atual
+    
+    let nomesFiltrados = [...listaAtual];
+
+    if (filtro === 'letraA') {
+        nomesFiltrados = listaAtual.filter(n => n.toUpperCase().startsWith('A'));
+    } else if (filtro === 'longos') {
+        nomesFiltrados = listaAtual.filter(n => n.length > 5);
     }
 
-    // 4. Criar lista com nomes > 5 letras
-    if (nome.length > 5) {
-        nomesLongos.push(nome);
-    }
-});
+    nomesFiltrados.forEach(nome => {
+        const li = document.createElement('li');
+        li.textContent = nome;
+        ul.appendChild(li);
+    });
 
-// Exibindo os resultados finais
-pContagem.textContent = `Total de nomes que começam com 'A': ${contagemA}`;
+    document.getElementById('contador-total').textContent = `Total exibido: ${nomesFiltrados.length}`;
+}
 
-nomesLongos.forEach(nome => {
-    const li = document.createElement('li');
-    li.textContent = nome;
-    ulLongos.appendChild(li);
-});
+// Função de Busca em tempo real
+function buscarNome() {
+    const termo = document.getElementById('inputBusca').value.toUpperCase();
+    const itens = document.querySelectorAll('#lista-exibicao li');
+
+    itens.forEach(li => {
+        const texto = li.textContent.toUpperCase();
+        li.style.display = texto.includes(termo) ? "" : "none";
+    });
+}
+
+// Inicia a página com nomes
+gerarNovosNomes();

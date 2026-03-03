@@ -1,10 +1,30 @@
-// Lista de nomes de convidados
+// Lista de convidados (inicial)
 let convidados = [
     "Ana", "Carlos", "Juliana", "Paulo", "Amanda", "Mariana", 
     "Lucas", "Alessandra", "Ricardo", "Tatiane", "Arthur", "Larissa"
 ];
 
-// Função para mostrar a lista completa
+// Função para adicionar um novo convidado
+function adicionarConvidado() {
+    let nomeInput = document.getElementById('newGuest');
+    let nomeConvidado = nomeInput.value.trim();
+
+    if (nomeConvidado && !convidados.includes(nomeConvidado)) {
+        convidados.push(nomeConvidado);
+        nomeInput.value = ''; // Limpa o campo de entrada
+        mostrarTodos(); // Atualiza a lista
+    } else {
+        alert("Por favor, digite um nome válido e que ainda não esteja na lista.");
+    }
+}
+
+// Função para remover um convidado
+function removerConvidado(nome) {
+    convidados = convidados.filter(convidado => convidado !== nome);
+    mostrarTodos(); // Atualiza a lista após remoção
+}
+
+// Função para mostrar todos os convidados
 function mostrarTodos() {
     let lista = document.getElementById('guestList');
     lista.innerHTML = ''; // Limpa a lista antes de adicionar os nomes
@@ -14,6 +34,13 @@ function mostrarTodos() {
         let nome = convidados[i].toUpperCase();
         let li = document.createElement('li');
         li.textContent = nome;
+        
+        // Botão para remover convidado
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(convidados[i]);
+
+        li.appendChild(btnRemover);
         lista.appendChild(li);
     }
 }
@@ -30,6 +57,12 @@ function filtrarComA() {
         let nome = nomesComA[i].toUpperCase();
         let li = document.createElement('li');
         li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(nomesComA[i]);
+
+        li.appendChild(btnRemover);
         lista.appendChild(li);
     }
 }
@@ -46,6 +79,12 @@ function filtrarMaisDeCinco() {
         let nome = nomesLongos[i].toUpperCase();
         let li = document.createElement('li');
         li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(nomesLongos[i]);
+
+        li.appendChild(btnRemover);
         lista.appendChild(li);
     }
 }

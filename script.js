@@ -34,11 +34,33 @@ function mostrarTodos() {
         let nome = convidados[i].toUpperCase();
         let li = document.createElement('li');
         li.textContent = nome;
-        
+
         // Botão para remover convidado
         let btnRemover = document.createElement('button');
         btnRemover.textContent = 'Remover';
         btnRemover.onclick = () => removerConvidado(convidados[i]);
+
+        li.appendChild(btnRemover);
+        lista.appendChild(li);
+    }
+}
+
+// Função para pesquisar convidado
+function pesquisarConvidado() {
+    let pesquisa = document.getElementById('searchInput').value.toLowerCase();
+    let lista = document.getElementById('guestList');
+    lista.innerHTML = ''; // Limpa a lista
+
+    let resultados = convidados.filter(nome => nome.toLowerCase().includes(pesquisa));
+
+    for (let i = 0; i < resultados.length; i++) {
+        let nome = resultados[i].toUpperCase();
+        let li = document.createElement('li');
+        li.textContent = nome;
+
+        let btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => removerConvidado(resultados[i]);
 
         li.appendChild(btnRemover);
         lista.appendChild(li);
@@ -52,7 +74,6 @@ function filtrarComA() {
 
     let nomesComA = convidados.filter(nome => nome.charAt(0).toUpperCase() === 'A');
 
-    // Exibe os nomes filtrados
     for (let i = 0; i < nomesComA.length; i++) {
         let nome = nomesComA[i].toUpperCase();
         let li = document.createElement('li');
@@ -67,27 +88,4 @@ function filtrarComA() {
     }
 }
 
-// Função para filtrar nomes com mais de 5 letras
-function filtrarMaisDeCinco() {
-    let lista = document.getElementById('guestList');
-    lista.innerHTML = ''; // Limpa a lista
-
-    let nomesLongos = convidados.filter(nome => nome.length > 5);
-
-    // Exibe os nomes filtrados
-    for (let i = 0; i < nomesLongos.length; i++) {
-        let nome = nomesLongos[i].toUpperCase();
-        let li = document.createElement('li');
-        li.textContent = nome;
-
-        let btnRemover = document.createElement('button');
-        btnRemover.textContent = 'Remover';
-        btnRemover.onclick = () => removerConvidado(nomesLongos[i]);
-
-        li.appendChild(btnRemover);
-        lista.appendChild(li);
-    }
-}
-
-// Mostrar todos os nomes ao carregar a página
-mostrarTodos();
+// Função
